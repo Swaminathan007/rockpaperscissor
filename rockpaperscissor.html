@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&family=Raleway&family=Work+Sans&display=swap" rel="stylesheet">
+    <style>
+        body{
+            background-image: linear-gradient(to right top, #2f9c59, #009284, #0084a9, #006fb8, #3c53a7);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Raleway', sans-serif;
+        }
+        .container{
+            position: absolute;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color:rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
+            width:70%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            height:auto;
+        }
+        .buttons{
+            height:50px;
+            margin-bottom: 20px;
+        }
+        img{
+            width: 50px;
+            height:50px;
+            border-radius:50%;
+        }
+        .choices{
+            margin:0px 20px 0px 20px;
+            width: 50px;
+            height:50px;
+            border-radius:50%;
+        }
+        .choices:hover{
+            width: 75px;
+            height: 75px;
+        }
+        #reset{
+            background-color: aquamarine;
+            height: 50px;
+            width:100px;
+            border:none;
+            border-radius:30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rock Paper Scissors</h1>
+        <div class="buttons">
+            <button class="choices" id="Stone" onclick="play(this)"><img src="https://cdn.iconscout.com/icon/free/png-256/free-stone-11-449918.png?f=avif&w=256" alt=""></button>
+            <button class="choices" id="Paper" onclick="play(this)"><img src="https://cdn.iconscout.com/icon/free/png-256/free-paper-455-461589.png?f=avif&w=256" alt=""></button>
+            <button class="choices" id="Scissors" onclick="play(this)"><img src="https://cdn.iconscout.com/icon/free/png-256/free-scissor-14-119198.png?f=avif&w=256" alt=""></button>
+        </div>
+        <div class="choice">
+            <p id="pchoice">Your choice:</p>
+            <p id="cchoice">Computer's choice:</p>
+            <h3 id="result"></h3>
+            <p id="pscore">Your score:0</p>
+            <p id="cscore">Computer's score:0</p>
+        </div>
+        <button id="reset" onclick="play(this)">Reset</button>
+    </div>
+    <script>
+        function play(button){
+            var pchoice = button.id;
+            var choices = ["Stone","Paper","Scissors"]
+            var cchoice  = choices[Math.floor(Math.random() * 3)];
+            console.log(Math.floor(Math.random() * 2));
+            var res = document.getElementById("result");
+            var pscr = document.getElementById("pscore");
+            var cscr = document.getElementById("cscore");
+            if(pchoice != "reset"){
+                document.getElementById("pchoice").innerText = "Your choice:"+pchoice;
+                document.getElementById("cchoice").innerText = "Computer's choice:"+cchoice;
+            }
+            if(pchoice == "reset"){
+                pscore = cscore = 0;
+                document.getElementById("pchoice").innerText = "Your choice:";
+                document.getElementById("cchoice").innerText = "Computer's choice:";
+                res.innerText = "";
+                cscr.innerText = "Computer's score:0";
+                pscr.innerText = "Your score:0";
+            }
+            if(pchoice == "Stone" && cchoice == "Stone"){
+                res.innerText = "It\'s a draw";
+            }
+            else if(pchoice == "Stone" && cchoice == "Paper"){
+                res.innerText = "Computer won";
+                cscore++;
+                cscr.innerText = "Computer's score:"+cscore;
+            }   
+            else if(pchoice == "Stone" && cchoice == "Scissors"){
+                res.innerText = "You won";
+                pscore++;
+                pscr.innerText = "Your score:"+pscore;
+            }
+            else if(pchoice == "Scissors" && cchoice == "Stone"){
+                res.innerText = "Computer won";
+                cscore++;
+                cscr.innerText = "Computer's score:"+cscore;
+            }
+            else if(pchoice == "Scissors" && cchoice == "Paper"){
+                res.innerText = "You won";
+                pscore++;
+                pscr.innerText = "Your score:"+pscore;
+            }   
+            else if(pchoice == "Scissors" && cchoice == "Scissors"){
+                res.innerText = "It\'s a draw";
+            }
+            else if(pchoice == "Paper" && cchoice == "Stone"){
+                res.innerText = "You won";
+                pscore++;
+                pscr.innerText = "Your score:"+pscore;
+            }
+            else if(pchoice == "Paper" && cchoice == "Paper"){
+                res.innerText = "It\'s a draw";
+            }   
+            else if(pchoice == "Paper" && cchoice == "Scissors"){
+                res.innerText = "Computer won";
+                cscore++;
+                cscr.innerText = "Computer's score:"+cscore;
+            }
+        }
+        var reset = document.getElementById("reset");
+        if(pscore == 0 && cscore == 0){
+            reset.disabled = true;
+        }
+        else{
+            reset.disabled = false;
+        }
+        var pscore = 0;
+        var cscore = 0;
+    </script>
+</body>
+</html>
